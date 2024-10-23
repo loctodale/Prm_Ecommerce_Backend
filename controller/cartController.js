@@ -64,11 +64,12 @@ module.exports.addCart = async (req, res) => {
 
 module.exports.addProductIntoCart = async (req, res) => {
   const { userId, productId, quantity } = req.body;
+  console.log(req.body);
   var foundCart = await Cart.findOne({
     user: userId,
   });
   if (foundCart == null) {
-    var cart = await Cart.create({
+    var foundCart = await Cart.create({
       user: userId,
       products: [{ product: productId, quantity }],
     });
@@ -81,6 +82,7 @@ module.exports.addProductIntoCart = async (req, res) => {
     } else {
       foundCart.products.push({ product: productId, quantity });
     }
+    await foundCart.save();
   }
 
   return res.status(200).json({ foundCart });

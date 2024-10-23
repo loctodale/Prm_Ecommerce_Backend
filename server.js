@@ -41,8 +41,8 @@ app.use("/products", productRoute);
 app.use("/carts", cartRoute);
 app.use("/users", userRoute);
 app.use("/auth", authRoute);
-app.use("/brand", brandRoute);
-app.use("/category", categoryRoute);
+app.use("/brands", brandRoute);
+app.use("/categories", categoryRoute);
 app.use("/image", require("./routes/image"));
 
 //mongoose

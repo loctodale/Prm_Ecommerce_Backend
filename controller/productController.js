@@ -25,12 +25,20 @@ module.exports.getAllProducts = async (req, res) => {
 };
 
 module.exports.getProduct = (req, res) => {
-  const id = req.params.id;
-
+  var id = req.params.id;
+  id = id.replace("$", "");
+  console.log(id);
   try {
     Product.findOne({
-      id,
+      _id: id,
     })
+      .populate({
+        path: "brand",
+        select: "name",
+      })
+      .populate({
+        path: "images",
+      })
       .select(["-_id"])
       .then((product) => {
         res.json(product);
