@@ -32,4 +32,4 @@ const voucherSchema = new schema({
   },
 });
 
-module.exports = mongoose.model("voucher", voucherSchema);
+module.exports = mongoose.model("Voucher", voucherSchema);

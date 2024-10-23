@@ -4,12 +4,12 @@ const schema = mongoose.Schema;
 const orderDetailSchema = new schema({
   product: {
     type: schema.Types.ObjectId,
-    ref: "product",
+    ref: "Product",
     require: true,
   },
   order: {
     type: schema.Types.ObjectId,
-    ref: "order",
+    ref: "Order",
     require: true,
   },
   totalPrice: {
@@ -26,4 +26,4 @@ const orderDetailSchema = new schema({
   },
 });
 
-module.exports = mongoose.model("order_detail", orderDetailSchema);
+module.exports = mongoose.model("Order_Detail", orderDetailSchema);
