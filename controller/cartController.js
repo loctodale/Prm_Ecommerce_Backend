@@ -20,21 +20,26 @@ module.exports.getAllCarts = (req, res) => {
     .catch((err) => console.log(err));
 };
 
-module.exports.getCartsbyUserid = (req, res) => {
+module.exports.getCartsbyUserid = async (req, res) => {
   const userId = req.params.userid;
-  const startDate = req.query.startdate || new Date("1970-1-1");
-  const endDate = req.query.enddate || new Date();
 
-  console.log(startDate, endDate);
-  Cart.find({
-    userId,
-    date: { $gte: new Date(startDate), $lt: new Date(endDate) },
+  const result = await Cart.findOne({
+    user: userId,
   })
-    .select("-_id -products._id")
-    .then((carts) => {
-      res.json(carts);
+    .populate({
+      path: "products.product",
+      populate: [
+        {
+          path: "images",
+        },
+        {
+          path: "brand",
+        },
+      ],
     })
-    .catch((err) => console.log(err));
+    .lean();
+
+  return res.json(result);
 };
 
 module.exports.getSingleCart = (req, res) => {
@@ -86,4 +91,40 @@ module.exports.addProductIntoCart = async (req, res) => {
   }
 
   return res.status(200).json({ foundCart });
+};
+
+module.exports.removeQuantityInCart = async (req, res) => {
+  const { userId, productId, quantity } = req.body;
+
+  try {
+    var foundCart = await Cart.findOne({ user: userId });
+
+    if (foundCart == null) {
+      return res.status(404).json({ message: "Cart not found" });
+    }
+
+    const foundProductInCart = foundCart.products.findIndex(
+      (p) => p.product.toString() === productId
+    );
+
+    if (foundProductInCart > -1) {
+      foundCart.products[foundProductInCart].quantity -= quantity;
+
+      if (foundCart.products[foundProductInCart].quantity <= 0) {
+        foundCart.products.splice(foundProductInCart, 1);
+      }
+
+      await foundCart.save();
+
+      return res.status(200).json({ foundCart });
+    } else {
+      // If the product is not in the cart, return an appropriate message
+      return res.status(404).json({ message: "Product not found in cart" });
+    }
+  } catch (error) {
+    console.error(error);
+    return res
+      .status(500)
+      .json({ message: "Error updating product quantity in cart", error });
+  }
 };

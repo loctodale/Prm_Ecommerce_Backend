@@ -8,5 +8,5 @@ router.get("/user/:userid", cart.getCartsbyUserid);
 
 // router.post("/", cart.addCart);
 router.post("/", cart.addProductIntoCart);
-
+router.post("/removeQuantity", cart.removeQuantityInCart);
 module.exports = router;
