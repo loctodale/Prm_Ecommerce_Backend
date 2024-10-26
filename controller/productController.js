@@ -39,7 +39,6 @@ module.exports.getProduct = (req, res) => {
       .populate({
         path: "images",
       })
-      .select(["-_id"])
       .then((product) => {
         res.json(product);
       });
@@ -51,21 +50,24 @@ module.exports.getProduct = (req, res) => {
     });
   }
 };
-module.exports.getProductsInCategory = (req, res) => {
+module.exports.getProductsInCategory = async (req, res) => {
   const category = req.params.category;
   const limit = Number(req.query.limit) || 0;
   const sort = req.query.sort == "desc" ? -1 : 1;
 
-  Product.find({
+  const product = await Product.find({
     category,
   })
-    .select(["-_id"])
-    .limit(limit)
-    .sort({ id: sort })
-    .then((products) => {
-      res.json(products);
+    .populate({
+      path: "images",
     })
-    .catch((err) => console.log(err));
+    .populate({
+      path: "brand",
+      select: "name",
+    })
+    .sort({ id: sort });
+
+  return res.json(product);
 };
 
 module.exports.addProduct = async (req, res) => {

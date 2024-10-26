@@ -8,5 +8,5 @@ router.post("/", user.addUser);
 router.put("/:id", user.editUser);
 router.patch("/:id", user.editUser);
 router.delete("/:id", user.deleteUser);
-
+router.post("/updateWishList", user.updateWishList);
 module.exports = router;

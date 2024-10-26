@@ -20,6 +20,12 @@ const userSchema = new schema({
   },
   address: String,
   phone: String,
+  wishList: [
+    {
+      type: schema.Types.ObjectId,
+      ref: "Product",
+    },
+  ],
 });
 
 module.exports = mongoose.model("User", userSchema);
