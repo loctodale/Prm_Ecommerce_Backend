@@ -17,7 +17,8 @@
     "express": "^4.17.1",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^8.7.0",
-    "morgan": "^1.10.0"
+    "morgan": "^1.10.0",
+    "pushy": "^4.0.0"
   },
   "devDependencies": {
     "ejs": "^3.1.6",
