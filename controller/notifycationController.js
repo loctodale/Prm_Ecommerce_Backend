@@ -1,5 +1,6 @@
 const Pushy = require("pushy");
 const Device = require("../model/device");
+const Notification = require("../model/notification");
 var pushy = new Pushy(process.env.PUSHY_SECRET_KEY);
 module.exports.register = async (req, res) => {
   const { userId, deviceToken } = req.query;
@@ -49,6 +50,13 @@ module.exports.pushNotificationOrderSuccess = async (req, res) => {
       image: imageUrl,
     },
   };
+  await Notification.create({
+    imageUrl,
+    isSeen: false,
+    message: data.message,
+    title: "order",
+    user: req.params.userId,
+  });
   pushy.sendPushNotification(
     data,
     device.deviceToken,
@@ -62,4 +70,11 @@ module.exports.pushNotificationOrderSuccess = async (req, res) => {
       res.send({ success: true, pushId: id });
     }
   );
+};
+module.exports.getNotificationByUserId = async (req, res) => {
+  const { userId } = req.params;
+  const result = await Notification.find({
+    user: userId,
+  });
+  return res.json(result);
 };

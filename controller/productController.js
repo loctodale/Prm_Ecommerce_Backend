@@ -82,38 +82,15 @@ module.exports.addProduct = async (req, res) => {
   res.json(result);
 };
 
-module.exports.editProduct = (req, res) => {
-  if (typeof req.body == undefined || req.params.id == null) {
-    res.json({
-      status: "error",
-      message: "something went wrong! check your sent data",
-    });
-  } else {
-    res.json({
-      id: req.params.id,
-      title: req.body.title,
-      price: req.body.price,
-      description: req.body.description,
-      image: req.body.image,
-      category: req.body.category,
-    });
-  }
+module.exports.editProduct = async (req, res) => {
+  const { id } = req.params;
+
+  const result = await Product.findByIdAndUpdate(id, req.body);
+  return res.json(result);
 };
 
-module.exports.deleteProduct = (req, res) => {
-  if (req.params.id == null) {
-    res.json({
-      status: "error",
-      message: "cart id should be provided",
-    });
-  } else {
-    Product.findOne({
-      id: req.params.id,
-    })
-      .select(["-_id"])
-      .then((product) => {
-        res.json(product);
-      })
-      .catch((err) => console.log(err));
-  }
+module.exports.deleteProduct = async (req, res) => {
+  const { id } = req.params;
+  let result = await Product.findByIdAndDelete(id);
+  return res.json(result);
 };

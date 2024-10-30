@@ -25,6 +25,10 @@ class BrandController {
     );
     return result;
   };
+  delete = async (req, res) => {
+    const result = await Brand.findByIdAndDelete(req.params.id);
+    return res.json(result);
+  };
 }
 
 module.exports = new BrandController();

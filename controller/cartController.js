@@ -1,23 +1,8 @@
 const Cart = require("../model/cart");
 
-module.exports.getAllCarts = (req, res) => {
-  const limit = Number(req.query.limit) || 0;
-  const sort = req.query.sort == "desc" ? -1 : 1;
-  const startDate = req.query.startdate || new Date("1970-1-1");
-  const endDate = req.query.enddate || new Date();
-
-  console.log(startDate, endDate);
-
-  Cart.find({
-    date: { $gte: new Date(startDate), $lt: new Date(endDate) },
-  })
-    .select("-_id -products._id")
-    .limit(limit)
-    .sort({ id: sort })
-    .then((carts) => {
-      res.json(carts);
-    })
-    .catch((err) => console.log(err));
+module.exports.getAllCarts = async (req, res) => {
+  var result = await Cart.find();
+  return res.json(result);
 };
 
 module.exports.getCartsbyUserid = async (req, res) => {
