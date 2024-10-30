@@ -11,3 +11,14 @@ module.exports.getById = async (req, res) => {
     })
   );
 };
+
+module.exports.create = async (req, res) => {
+  return res.json(await Delivery.create(req.body));
+};
+
+module.exports.update = async (req, res) => {
+  return res.json(await Delivery.findByIdAndUpdate(req.params.id, req.body));
+};
+module.exports.delete = async (req, res) => {
+  return res.json(await Delivery.findByIdAndDelete(req.params.id));
+};

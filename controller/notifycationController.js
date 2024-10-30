@@ -75,6 +75,23 @@ module.exports.getNotificationByUserId = async (req, res) => {
   const { userId } = req.params;
   const result = await Notification.find({
     user: userId,
+  }).sort({ isSeen: 1 });
+  return res.json(result);
+};
+
+module.exports.getUnSeenNotificationByUserId = async (req, res) => {
+  const { userId } = req.params;
+  const result = await Notification.find({
+    user: userId,
+    isSeen: false,
+  });
+  return res.json(result);
+};
+
+module.exports.updateSeenMessage = async (req, res) => {
+  const { messageId } = req.params;
+  const result = await Notification.findByIdAndUpdate(messageId, {
+    isSeen: true,
   });
   return res.json(result);
 };

@@ -45,6 +45,8 @@ app.use("/brands", brandRoute);
 app.use("/categories", categoryRoute);
 app.use("/image", require("./routes/image"));
 app.use("/notification", require("./routes/notification"));
+app.use("/delivery", require("./routes/delivery"));
+app.use("/orderDetail", require("./routes/orderDetail"));
 //mongoose
 mongoose
   .connect(process.env.DATABASE_URL, { useNewUrlParser: true })
