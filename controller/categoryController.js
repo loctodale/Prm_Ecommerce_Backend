@@ -5,18 +5,18 @@ class CategoryController {
     const result = await Category.create(req.body);
     return res.json(result);
   };
-  getAll = (req, res) => {
-    const result = Category.find().lean();
+  getAll = async (req, res) => {
+    const result = await Category.find().lean();
     return res.json(result);
   };
-  getById = (req, res) => {
-    const result = Category.findById({
+  getById = async (req, res) => {
+    const result = await Category.findById({
       _id: req.query.id,
     }).lean();
     return res.json(result);
   };
-  update = (req, res) => {
-    const result = Category.findOneAndUpdate(
+  update = async (req, res) => {
+    const result = await Category.findOneAndUpdate(
       {
         _id: req.params.id,
       },
