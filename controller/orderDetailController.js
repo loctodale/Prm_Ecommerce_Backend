@@ -19,7 +19,7 @@ class OrderDetailController {
     );
   };
   delete = async (req, res) => {
-    return res.json(OrderDetail.findByIdAndDelete(req.params.id));
+    return res.json(await OrderDetail.findByIdAndDelete(req.params.id));
   };
 }
 

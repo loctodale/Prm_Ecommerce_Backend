@@ -30,6 +30,9 @@ module.exports.getUser = async (req, res) => {
       {
         path: "brand",
       },
+      {
+        path: "category",
+      },
     ],
   });
   return res.json(user);
@@ -110,7 +113,7 @@ module.exports.updateWishList = async (req, res) => {
   } else {
     user.wishList.push(productId);
   }
-  user.save();
+  await user.save();
   const result = await User.findOne({
     _id: userId,
   }).populate({
@@ -121,6 +124,9 @@ module.exports.updateWishList = async (req, res) => {
       },
       {
         path: "brand",
+      },
+      {
+        path: "category",
       },
     ],
   });

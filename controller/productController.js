@@ -42,6 +42,9 @@ module.exports.getProduct = (req, res) => {
       .populate({
         path: "images",
       })
+      .populate({
+        path: "category",
+      })
       .then((product) => {
         res.json(product);
       });
@@ -67,6 +70,9 @@ module.exports.getProductsInCategory = async (req, res) => {
     .populate({
       path: "brand",
       select: "name",
+    })
+    .populate({
+      path: "category",
     })
     .sort({ id: sort });
 
