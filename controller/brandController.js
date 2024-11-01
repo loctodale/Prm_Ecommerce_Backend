@@ -2,13 +2,13 @@ const Brand = require("../model/brand");
 class BrandController {
   getAll = async (req, res) => {
     const result = await Brand.find();
-    return res(result);
+    return res.json(result);
   };
   getById = async (req, res) => {
     const result = await Brand.findById({
       _id: req.params.id,
     });
-    return res(result);
+    return res.json(result);
   };
   create = async (req, res) => {
     const result = await Brand.create(req.body);
