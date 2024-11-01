@@ -13,6 +13,9 @@ module.exports.getAllProducts = async (req, res) => {
         path: "brand",
         select: "name",
       })
+      .populate({
+        path: "category",
+      })
       .limit(limit)
       .sort({ id: sort });
     res.json(products);
