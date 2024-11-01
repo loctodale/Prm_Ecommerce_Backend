@@ -7,13 +7,13 @@ class CategoryController {
   };
   getAll = (req, res) => {
     const result = Category.find().lean();
-    return res(result);
+    return res.json(result);
   };
   getById = (req, res) => {
     const result = Category.findById({
       _id: req.query.id,
     }).lean();
-    return res(result);
+    return res.json(result);
   };
   update = (req, res) => {
     const result = Category.findOneAndUpdate(
@@ -25,7 +25,7 @@ class CategoryController {
       }
     );
 
-    return res("update success");
+    return res.json("update success");
   };
 }
 
