@@ -20,6 +20,9 @@ module.exports.getCartsbyUserid = async (req, res) => {
         {
           path: "brand",
         },
+        {
+          path: "category",
+        },
       ],
     })
     .lean();

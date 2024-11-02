@@ -50,34 +50,14 @@ module.exports.addUser = async (req, res) => {
   }
 };
 
-module.exports.editUser = (req, res) => {
+module.exports.editUser = async (req, res) => {
   if (typeof req.body == undefined || req.params.id == null) {
     res.json({
       status: "error",
       message: "something went wrong! check your sent data",
     });
   } else {
-    res.json({
-      id: parseInt(req.params.id),
-      email: req.body.email,
-      username: req.body.username,
-      password: req.body.password,
-      name: {
-        firstname: req.body.firstname,
-        lastname: req.body.lastname,
-      },
-      address: {
-        city: req.body.address.city,
-        street: req.body.address.street,
-        number: req.body.number,
-        zipcode: req.body.zipcode,
-        geolocation: {
-          lat: req.body.address.geolocation.lat,
-          long: req.body.address.geolocation.long,
-        },
-      },
-      phone: req.body.phone,
-    });
+    res.json(await User.findByIdAndUpdate(req.params.id, req.body));
   }
 };
 

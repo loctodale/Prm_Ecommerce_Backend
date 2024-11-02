@@ -8,11 +8,9 @@ const userSchema = new schema({
   },
   username: {
     type: String,
-    required: true,
   },
   password: {
     type: String,
-    required: true,
   },
   name: {
     type: String,
@@ -20,6 +18,9 @@ const userSchema = new schema({
   },
   address: String,
   phone: String,
+  googleId: {
+    type: String,
+  },
   wishList: [
     {
       type: schema.Types.ObjectId,
