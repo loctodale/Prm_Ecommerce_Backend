@@ -116,3 +116,12 @@ module.exports.removeQuantityInCart = async (req, res) => {
       .json({ message: "Error updating product quantity in cart", error });
   }
 };
+
+module.exports.deleteCartByUserId = async (req, res) => {
+  const { userId } = req.params;
+  return res.json(
+    await Cart.findOneAndDelete({
+      user: userId,
+    })
+  );
+};

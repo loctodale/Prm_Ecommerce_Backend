@@ -10,6 +10,13 @@ class OrderController {
       })
     );
   };
+  getOrderByUserId = async (req, res) => {
+    return res.json(
+      await Order.findOne({
+        user: req.params.userId,
+      })
+    );
+  };
   create = async (req, res) => {
     return res.json(await Order.create(...req.body));
   };
