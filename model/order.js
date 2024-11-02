@@ -38,6 +38,10 @@ const orderSchema = new schema({
       ref: "Product",
     },
   ],
+  date: {
+    type: Date,
+    default: Date.now,
+  },
   isDelete: {
     type: Boolean,
     default: false,
