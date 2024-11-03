@@ -1,10 +1,10 @@
 const OrderDetail = require("../model/orderDetail");
 class OrderDetailController {
   getAll = async (req, res) => {
-    return res(await OrderDetail.find());
+    return res.json(await OrderDetail.find());
   };
   getByOrderId = async (req, res) => {
-    return res(
+    return res.json(
       await OrderDetail.find({
         order: req.params.orderId,
       })
