@@ -21,6 +21,11 @@ const userSchema = new schema({
   googleId: {
     type: String,
   },
+  role: {
+    type: String,
+    enum: ["admin", "manager", "customer", "shipper"],
+    default: "customer",
+  },
   wishList: [
     {
       type: schema.Types.ObjectId,

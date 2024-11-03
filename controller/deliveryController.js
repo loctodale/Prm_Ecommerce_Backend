@@ -1,7 +1,7 @@
 const Delivery = require("../model/delivery");
-
+const Order = require("../model/order");
 module.exports.getAll = async (req, res) => {
-  return res.json(await Delivery.find());
+  return res.json(await Delivery.find().populate("order"));
 };
 
 module.exports.getById = async (req, res) => {
@@ -16,6 +16,19 @@ module.exports.getByOrderId = async (req, res) => {
   return res.json(
     await Delivery.findOne({
       order: req.params.orderId,
+    })
+  );
+};
+
+module.exports.getByShipperId = async (req, res) => {
+  return res.json(
+    await Delivery.find({
+      shipper: req.params.shipperId,
+    }).populate({
+      path: "order",
+      populate: {
+        path: "user",
+      },
     })
   );
 };

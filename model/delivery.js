@@ -5,20 +5,21 @@ const deliverySchema = new schema({
   order: {
     type: schema.Types.ObjectId,
     ref: "Order",
-    require: true,
   },
   shipper: {
     type: schema.Types.ObjectId,
     ref: "User",
-    require: true,
   },
   shippingLocation: {
     type: String,
-    require: true,
   },
   shippingFee: {
     type: Number,
-    require: true,
+  },
+  status: {
+    type: String,
+    enum: ["Not yet", "Success"],
+    default: "Not yet",
   },
 });
 

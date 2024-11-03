@@ -7,15 +7,9 @@ const orderSchema = new schema({
     ref: "User",
     require: true,
   },
-  cart: {
-    type: schema.Types.ObjectId,
-    ref: "Cart",
-    require: true,
-  },
   voucher: {
     type: schema.Types.ObjectId,
     ref: "Voucher",
-    require: true,
   },
   priceBeforeShip: {
     type: Number,
@@ -32,19 +26,9 @@ const orderSchema = new schema({
     require: true,
     enum: ["pending", "success", "fail"],
   },
-  products: [
-    {
-      type: schema.Types.ObjectId,
-      ref: "Product",
-    },
-  ],
   date: {
     type: Date,
     default: Date.now,
-  },
-  isDelete: {
-    type: Boolean,
-    default: false,
   },
 });
 

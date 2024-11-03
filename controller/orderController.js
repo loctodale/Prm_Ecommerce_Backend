@@ -18,7 +18,7 @@ class OrderController {
     );
   };
   create = async (req, res) => {
-    return res.json(await Order.create(...req.body));
+    return res.json(await Order.create(req.body));
   };
 }
 
