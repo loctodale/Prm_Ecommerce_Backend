@@ -8,7 +8,7 @@ module.exports.getAllCarts = async (req, res) => {
 module.exports.getCartsbyUserid = async (req, res) => {
   const userId = req.params.userid;
 
-  const result = await Cart.findOne({
+  let result = await Cart.findOne({
     user: userId,
   })
     .populate({
@@ -26,7 +26,25 @@ module.exports.getCartsbyUserid = async (req, res) => {
       ],
     })
     .lean();
-
+  if (result == null) {
+    result = await Cart.create({
+      user: userId,
+    });
+    result.populate({
+      path: "products.product",
+      populate: [
+        {
+          path: "images",
+        },
+        {
+          path: "brand",
+        },
+        {
+          path: "category",
+        },
+      ],
+    });
+  }
   return res.json(result);
 };
 
