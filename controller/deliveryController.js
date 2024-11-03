@@ -12,6 +12,14 @@ module.exports.getById = async (req, res) => {
   );
 };
 
+module.exports.getByOrderId = async (req, res) => {
+  return res.json(
+    await Delivery.findOne({
+      order: req.params.orderId,
+    })
+  );
+};
+
 module.exports.create = async (req, res) => {
   return res.json(await Delivery.create(req.body));
 };
