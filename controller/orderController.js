@@ -20,6 +20,10 @@ class OrderController {
   create = async (req, res) => {
     return res.json(await Order.create(req.body));
   };
+  createOrderStack = async (req, res) => {
+    console.log(req.body);
+    return res.json("test");
+  };
 }
 
 module.exports = new OrderController();

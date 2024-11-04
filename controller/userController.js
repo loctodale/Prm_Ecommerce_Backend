@@ -5,7 +5,6 @@ module.exports.getAllUser = (req, res) => {
   const sort = req.query.sort == "desc" ? -1 : 1;
 
   User.find()
-    .select(["-_id"])
     .limit(limit)
     .sort({
       id: sort,
