@@ -8,6 +8,11 @@ module.exports.getById = async (req, res) => {
   return res.json(
     await Delivery.findOne({
       _id: req.params.id,
+    }).populate({
+      path: "order",
+      populate: {
+        path: "user",
+      },
     })
   );
 };
@@ -39,6 +44,18 @@ module.exports.create = async (req, res) => {
 
 module.exports.update = async (req, res) => {
   return res.json(await Delivery.findByIdAndUpdate(req.params.id, req.body));
+};
+
+module.exports.updateShipSuccess = async (req, res) => {
+  await Delivery.findOneAndUpdate(
+    {
+      _id: req.params.id,
+    },
+    {
+      status: "Success",
+    }
+  );
+  return res.json("Success");
 };
 module.exports.delete = async (req, res) => {
   return res.json(await Delivery.findByIdAndDelete(req.params.id));

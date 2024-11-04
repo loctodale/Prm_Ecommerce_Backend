@@ -8,6 +8,7 @@ router.get("/order/:orderId", DeliveryController.getById);
 router.get("/shipper/:shipperId", DeliveryController.getByShipperId);
 router.post("/", DeliveryController.create);
 router.put("/:id", DeliveryController.update);
+router.put("/updateShipSuccess/:id", DeliveryController.updateShipSuccess);
 router.delete("/:id", DeliveryController.delete);
 
 module.exports = router;
