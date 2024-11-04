@@ -16,6 +16,14 @@ const deliverySchema = new schema({
   shippingFee: {
     type: Number,
   },
+  latLocation: {
+    type: String,
+    required: true,
+  },
+  longLocation: {
+    type: String,
+    required: true,
+  },
   status: {
     type: String,
     enum: ["Not yet", "Success"],
