@@ -30,7 +30,7 @@ class NotificationService {
       isSeen: false,
       message: data.message,
       title: "order",
-      user: req.params.userId,
+      user: userId,
     });
     pushy.sendPushNotification(
       data,
