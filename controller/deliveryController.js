@@ -47,7 +47,7 @@ module.exports.update = async (req, res) => {
 };
 
 module.exports.updateShipSuccess = async (req, res) => {
-  await Delivery.findOneAndUpdate(
+  let result = await Delivery.findOneAndUpdate(
     {
       _id: req.params.id,
     },
@@ -55,6 +55,13 @@ module.exports.updateShipSuccess = async (req, res) => {
       status: "Success",
     }
   );
+  await result.populate({
+    path: "order",
+    populate: {
+      path: "user",
+    },
+  });
+
   return res.json("Success");
 };
 module.exports.delete = async (req, res) => {

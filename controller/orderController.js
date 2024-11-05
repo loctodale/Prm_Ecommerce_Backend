@@ -70,6 +70,7 @@ class OrderController {
       shippingFee: totalPrice - priceBeforeShip,
       shippingLocation: shippingLocation,
     });
+    await Cart.findByIdAndDelete(cartId);
     NotificationService.notificationOrderSuccess(userId);
     return res.json("Success");
   };
