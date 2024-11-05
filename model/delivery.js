@@ -9,6 +9,7 @@ const deliverySchema = new schema({
   shipper: {
     type: schema.Types.ObjectId,
     ref: "User",
+    default: null,
   },
   shippingLocation: {
     type: String,

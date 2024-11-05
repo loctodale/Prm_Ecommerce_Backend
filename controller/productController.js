@@ -1,5 +1,5 @@
 const Product = require("../model/product");
-
+const Inventory = require("../model/inventory");
 module.exports.getAllProducts = async (req, res) => {
   const limit = Number(req.query.limit) || 0;
   const sort = req.query.sort == "desc" ? -1 : 1;
@@ -87,7 +87,11 @@ module.exports.addProduct = async (req, res) => {
     });
   }
   const result = await Product.create(req.body);
-
+  const inventory = await Inventory.create({
+    isDelete: false,
+    product: result._id,
+    stock: 1,
+  });
   res.json(result);
 };
 
